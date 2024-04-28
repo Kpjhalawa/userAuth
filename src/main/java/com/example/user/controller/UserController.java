@@ -8,23 +8,22 @@ import com.example.user.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+
 public class UserController {
     @Autowired
     private UserServices userServices;
 
-@PostMapping("/signup")
+    @PostMapping("/signup")
     public User signup(@RequestBody SignupRequestDto signupRequestDto){
     return userServices.signUp(signupRequestDto.getName(),signupRequestDto.getEmail(),
             signupRequestDto.getPassword());
     }
 
     @PostMapping("/login")
+    @CrossOrigin(origins = "http://localhost:63343")
     public Token login(@RequestBody LoginRequestDto loginRequestDto){
     return userServices.login(loginRequestDto.getEmail(), loginRequestDto.getPassword());
     }
